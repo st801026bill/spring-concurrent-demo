@@ -1,10 +1,12 @@
 package com.bill.controller;
 
 import com.bill.service.AtomicIntegerService;
+import com.bill.service.CountDownService;
 import com.bill.service.LockService;
 import com.bill.service.SynchronizedService;
 import com.bill.service.WaitNotifyService;
 import com.bill.service.ThreadService;
+import com.bill.service.YieldJoinService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,9 @@ public class DemoController {
     private final SynchronizedService synchronizedService;
     private final AtomicIntegerService atomicIntegerService;
     private final LockService lockService;
+    private final YieldJoinService yieldJoinService;
+    private final CountDownService countDownService;
+
     /**
      *  程式要執行多工要覆蓋run()
      *  Bad!!->類別不能在使用繼承
@@ -80,6 +85,22 @@ public class DemoController {
     @PostMapping("/lock")
     public String demoLock() {
         lockService.demo();
+        return "success";
+    }
+
+    //yield & join
+    @Operation(summary = "", description = "")
+    @PostMapping("/yieldJoin")
+    public String demoYieldJoin() {
+        yieldJoinService.demo();
+        return "success";
+    }
+
+    //每執行一次countDown()-> new CountDownLatch(3)會-1(到0時await();才會繼續往下執行)
+    @Operation(summary = "", description = "")
+    @PostMapping("/countdown")
+    public String demoCountDown() {
+        countDownService.demo();
         return "success";
     }
 }
