@@ -1,10 +1,8 @@
 package com.bill.controller;
 
 import com.bill.demo.FibonacciTask;
-import com.bill.service.AtomicIntegerService;
 import com.bill.service.CountDownService;
 import com.bill.service.CyclicBarrierService;
-import com.bill.service.FibonacciTaskService;
 import com.bill.service.LockService;
 import com.bill.service.SynchronizedService;
 import com.bill.service.WaitNotifyService;
@@ -24,13 +22,11 @@ public class DemoController {
     private final SynchronizedService runnableService;
     private final WaitNotifyService waitNotifyService;
     private final SynchronizedService synchronizedService;
-    private final AtomicIntegerService atomicIntegerService;
+    private final FibonacciTask atomicIntegerService;
     private final LockService lockService;
     private final YieldJoinService yieldJoinService;
     private final CountDownService countDownService;
     private final CyclicBarrierService cyclicBarrierService;
-    private final FibonacciTaskService fibonacciTaskService;
-
     /**
      *  程式要執行多工要覆蓋run()
      *  Bad!!->類別不能在使用繼承
@@ -111,13 +107,6 @@ public class DemoController {
     @PostMapping("/cyclicBarrier")
     public String cyclicBarrier() {
         cyclicBarrierService.demo();
-        return "success";
-    }
-
-    @Operation(summary = "", description = "")
-    @PostMapping("/fibonacciTask")
-    public String fibonacciTask() {
-        fibonacciTaskService.demo();
         return "success";
     }
 }
