@@ -1,6 +1,7 @@
 package com.bill.controller;
 
 import com.bill.service.AtomicIntegerService;
+import com.bill.service.LockService;
 import com.bill.service.SynchronizedService;
 import com.bill.service.WaitNotifyService;
 import com.bill.service.ThreadService;
@@ -22,7 +23,7 @@ public class DemoController {
     private final WaitNotifyService waitNotifyService;
     private final SynchronizedService synchronizedService;
     private final AtomicIntegerService atomicIntegerService;
-
+    private final LockService lockService;
     /**
      *  程式要執行多工要覆蓋run()
      *  Bad!!->類別不能在使用繼承
@@ -74,4 +75,11 @@ public class DemoController {
         return "success";
     }
 
+    //將synchronized改成lock的寫法
+    @Operation(summary = "", description = "")
+    @PostMapping("/lock")
+    public String demoLock() {
+        lockService.demo();
+        return "success";
+    }
 }
