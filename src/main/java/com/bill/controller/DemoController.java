@@ -1,5 +1,6 @@
 package com.bill.controller;
 
+import com.bill.service.AtomicIntegerService;
 import com.bill.service.SynchronizedService;
 import com.bill.service.WaitNotifyService;
 import com.bill.service.ThreadService;
@@ -20,6 +21,7 @@ public class DemoController {
     private final SynchronizedService runnableService;
     private final WaitNotifyService waitNotifyService;
     private final SynchronizedService synchronizedService;
+    private final AtomicIntegerService atomicIntegerService;
 
     /**
      *  程式要執行多工要覆蓋run()
@@ -56,10 +58,19 @@ public class DemoController {
         return "success";
     }
 
+    //synchronized的應用
     @Operation(summary = "", description = "")
     @PostMapping("/synchronized")
     public String demoSynchronized() {
         synchronizedService.demo();
+        return "success";
+    }
+
+    //用AtomicInteger將i++改為一個步驟完成
+    @Operation(summary = "", description = "")
+    @PostMapping("/atomicInteger")
+    public String demoAtomicInteger() {
+        atomicIntegerService.demo();
         return "success";
     }
 
