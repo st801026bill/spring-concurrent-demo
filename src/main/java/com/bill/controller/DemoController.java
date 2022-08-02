@@ -1,24 +1,26 @@
 package com.bill.controller;
 
-import com.bill.service.RunnableService;
+import com.bill.service.SynchronizedService;
 import com.bill.service.WaitNotifyService;
 import com.bill.service.ThreadService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "", description = "")
 @RestController
+@RequiredArgsConstructor
 public class DemoController {
+    private final ThreadService threadService;
+    private final SynchronizedService runnableService;
+    private final WaitNotifyService waitNotifyService;
+    private final SynchronizedService synchronizedService;
 
-    @Autowired
-    private ThreadService threadService;
-    @Autowired
-    private RunnableService runnableService;
-    @Autowired
-    private WaitNotifyService waitNotifyService;
     /**
      *  程式要執行多工要覆蓋run()
      *  Bad!!->類別不能在使用繼承
@@ -26,7 +28,7 @@ public class DemoController {
      */
     @Operation(summary = "", description = "")
     @PostMapping("/thread")
-    public String thread() {
+    public String demoThread() {
         threadService.demo();
         return "success";
     }
@@ -38,7 +40,7 @@ public class DemoController {
      */
     @Operation(summary = "", description = "")
     @PostMapping("/runnable")
-    public String runnable() {
+    public String demoRunnable() {
         runnableService.demo();
         return "success";
     }
@@ -49,8 +51,16 @@ public class DemoController {
      */
     @Operation(summary = "", description = "")
     @PostMapping("/wait_notify")
-    public String waitNotify() {
+    public String demoWaitNotify() {
         waitNotifyService.demo();
         return "success";
     }
+
+    @Operation(summary = "", description = "")
+    @PostMapping("/synchronized")
+    public String demoSynchronized() {
+        synchronizedService.demo();
+        return "success";
+    }
+
 }
